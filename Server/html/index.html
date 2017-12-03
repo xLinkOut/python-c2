@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    {% if clients == None %}
+        <p>Nessun client registrato nel database</p>
+    {% else %}
+        <ul>
+            {% for client in clients %}
+                <li><a href="/client/{{client}}">{{client}}</a></li>
+            {% end %}
+        </ul>
+    {% end %}
+    
+    <a href="/massive">Massive command execution</a><br>
+
+    <a href="/signup">Signup</a>
+    <a href="/login">Login</a>
+    <a href="/logout">Logout</a>
+    <a href="/recover">Recover</a>
+</body>
+</html>
