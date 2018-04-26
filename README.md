@@ -1,2 +1,6 @@
-# python-c2
-Python C2 with a Tornado WebServer
+# Python C²
+Python Command-n-Control botnet with Tornado WebServer.
+
+# How it works
+
+# Install
