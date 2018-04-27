@@ -20,13 +20,10 @@
     
     <br>
     
-    <button type="submit" id="sysinfo">System Info</button>
-
-    <div id="terminal">
-        <ul style="list-style-type: none;margin: 0;padding: 0;">
-            <!-- fake terminal output -->
-        </ul>
-    </div>
+    <form method="post" action ="">
+        <input type="submit" value="sysinfo" 
+             name="command" id="frm1_submit" />
+    </form>
 
     <form method="post" action="">
         <input type="hidden" name="clientid" value="{{data[0]}}">
@@ -53,20 +50,6 @@
             });
         }
     </script>
-    <script>
-        $("#sysinfo").on('click', function(e){
-            e.preventDefault();
-            $.ajax({
-                url: window.location.pathname,
-                type:'post',
-                data:{'command':'sysinfo'},
-                success:function(msg){
-                    console.log(msg);
-                    //Insert dinamically admin name
-                    $("#terminal ul").append('<li>luca@DaVinci# '+msg+'</li>');
-                }
-            });
-        });
-    </script>
+
 </body>
 </html>

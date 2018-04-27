@@ -109,7 +109,6 @@ class ClientHandler(BaseHandler):
         self.render(tornado.options.options.html + "/client.html",data = client_data)
     
     def post(self):
-        print("diocane")
         client_id = self.request.uri[8:]
         command = self.get_body_argument("command")
         command_id = secrets.token_urlsafe()

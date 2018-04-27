@@ -1,7 +1,6 @@
 venv/
 .vscode/
 */__pycache__/
-Server/Database.db
+*.db
 changelog.txt
 *.pyc
-
