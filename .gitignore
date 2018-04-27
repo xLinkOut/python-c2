@@ -3,3 +3,5 @@ venv/
 */__pycache__/
 Server/Database.db
 changelog.txt
+*.pyc
+

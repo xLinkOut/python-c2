@@ -20,7 +20,7 @@
     
     <br>
     
-    <form id="myForm">
+    <form method="post" action ="">
         <input type="submit" value="sysinfo" 
              name="command" id="frm1_submit" />
     </form>
@@ -41,7 +41,7 @@
     <script>
         function SubForm (){
             $.ajax({
-                url:'/client/api/sysinfo',
+                url: window.location.pathname,
                 type:'post',
                 data:$('#myForm').serialize(),
                 success:function(){

@@ -28,9 +28,6 @@ class Application(tornado.web.Application):
             tornado.web.url(r"/massive",Server.MassiveHandler,name="MassiveHandler"),            
             tornado.web.url(r"/client/[0-9a-z]+",Server.ClientHandler,name="ClientHandler"),
 
-            # Server APIs
-            tornado.web.url(r"/client/api/sysinfo",Server.SysinfoHandler,name="SysinfoHandler"),
-            
             # Client APIs
             tornado.web.url(r"/api/init",APIs.InitHandler,name="InitHandler"),
             tornado.web.url(r"/api/getUpdates",APIs.GetUpdatesHandler,name="GetUpdatesHandler"),
