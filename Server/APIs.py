@@ -26,19 +26,14 @@ class InitHandler(tornado.web.RequestHandler):
 class GetUpdatesHandler(tornado.web.RequestHandler):
     def get(self):
         client_id = self.get_argument("id")
-        command = Utility.DB.selectQuery("SELECT COMMAND_ID,COMMAND FROM QUEUE WHERE CLIENT_ID=?",[client_id])
+        command = Utility.DB.selectQuery("SELECT COMMAND_ID,COMMAND FROM QUEUE WHERE CLIENT_ID=? AND STATUS=0",[client_id])
         if command == None:
-            self.write({"ok":True,"idle":True})
+            self.write({'command': None})
         else:
-            self.write({"ok":True,"idle":False,"command":{"id": command[0],"command": command[1]}})
+            self.write({'command': {'id': command[0], 'command': command[1]}})
 
     def post(self):
         client_id = self.get_body_argument("id")
-        exists = Utility.DB.selectQuery("SELECT * FROM CLIENTS WHERE ID=?",[client_id])
-        if exists:
-            # Client già registrato nel database
-            self.write({"ok":True,"status":"already exists"})
-        else:
-            # Nuovo client
-            Utility.DB.executeQuery("INSERT INTO CLIENTS(ID) VALUES(?)",[client_id])
-            self.write({"ok":True,"status":"client registered"})
+        command_id = self.get_body_argument("command_id")
+        response = self.get_body_argument("response")
+        Utility.DB.executeQuery("UPDATE QUEUE SET RESPONSE=?, STATUS=1 WHERE CLIENT_ID=? AND COMMAND_ID=?",[response,client_id,command_id])
