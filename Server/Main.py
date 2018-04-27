@@ -5,9 +5,7 @@ import os
 import Server
 import APIs
 
-os.system("cls") #Per favore 
-
-tornado.options.define("port",type=int,default=80,help="Run the WebServer on the given port.")
+tornado.options.define("port",type=int,default=6969,help="Run the WebServer on the given port.")
 tornado.options.define("html",type=str,default="html",help="Set the directory that contain the html files.")
 
 class Application(tornado.web.Application):

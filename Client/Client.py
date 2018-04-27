@@ -6,7 +6,7 @@ import requests,json
 from time import sleep
 from uuid import getnode as generateID
 
-SERVER_URL = "http://localhost/api/"
+SERVER_URL = "http://localhost:6969/api/"
 MY_ID = generateID()
 
 def Init():
@@ -22,12 +22,12 @@ def Polling():
 
 def main():
     Init()
-    while(True):
-        command = Polling()
-        if command:
-            print(command)
-        else:
-            sleep(5)
+    #while(True):
+    command = Polling()
+    if command:
+        print(command)
+    #else:
+    #    sleep(5)
 
 if __name__ == "__main__":
     main()

@@ -2,3 +2,4 @@ venv/
 .vscode/
 */__pycache__/
 Server/Database.db
+changelog.txt
