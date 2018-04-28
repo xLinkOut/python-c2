@@ -32,7 +32,8 @@ class Application(tornado.web.Application):
             # Client APIs
             tornado.web.url(r"/api/init",APIs.InitHandler,name="InitHandler"),
             tornado.web.url(r"/api/getUpdates",APIs.GetUpdatesHandler,name="GetUpdatesHandler"),
-
+            tornado.web.url(r"/api/sysinfo",APIs.SysinfoHandler,name="SysinfoHandler")
+            
         ], **settings)
 
 def main():
