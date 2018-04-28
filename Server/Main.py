@@ -27,6 +27,7 @@ class Application(tornado.web.Application):
             tornado.web.url(r"/token",Server.TokenHandler,name="TokenHandler"),
             tornado.web.url(r"/massive",Server.MassiveHandler,name="MassiveHandler"),            
             tornado.web.url(r"/client/[0-9a-z]+",Server.ClientHandler,name="ClientHandler"),
+            tornado.web.url(r"/client/[0-9a-z]+/loadDatabase",Server.DatabaseHandler,name="DatabaseHandler"),
 
             # Client APIs
             tornado.web.url(r"/api/init",APIs.InitHandler,name="InitHandler"),

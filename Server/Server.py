@@ -127,7 +127,8 @@ class MassiveHandler(BaseHandler):
             Utility.DB.executeQuery("INSERT INTO QUEUE('COMMAND_ID','CLIENT_ID','COMMAND') VALUES(?,?,?)",[command_id,client[0],command])
         self.write("Done, commands in queue")
 
-# APIs
-class SysinfoHandler(BaseHandler):
-    def post(self):
-        print(self.get_body_argument('command'))
+class DatabaseHandler(BaseHandler):
+    def get(self):
+        client_id = self.request.uri[8:].split('/')[0]
+        data = Utility.DB.selectQuery("SELECT COMMAND FROM QUEUE WHERE CLIENT_ID=?",[client_id])[0][0]
+        self.write(data)
