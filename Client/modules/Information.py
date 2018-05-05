@@ -1,9 +1,12 @@
-# mac addr# uptime# computer type# host# port# bios date# bios id# bios type# bios vendor# server location# mutex# uuid# active cpu/ram/disk usage# tracemap#dxdiag#cpuinfo)
+# mac addr# uptime# computer type# host# port# bios date# bios id
+# # bios type# bios vendor# server location# mutex# uuid
+# # active cpu/ram/disk usage# tracemap#dxdiag#cpuinfo)
 import platform, psutil, os, json, datetime, tempfile, subprocess, time, xmltodict
 from xmljson import badgerfish as bf
 
 
 class Win32:
+    # TODO: Generate a test report file of dxdiag
     report_path = os.path.join(tempfile.gettempdir(), 'report.xml')    
     def genReport():
         if os.path.exists(report_path):
@@ -146,4 +149,34 @@ class Win32:
 
 class Linux:
     def getInfo():
-        return "0"
+        information = {
+            "system": {
+                "name": dxdiag['SystemInformation']['MachineName'],            
+                "manufacturer": dxdiag['SystemInformation']['SystemManufacturer'],
+                "model": dxdiag['SystemInformation']['SystemModel'],
+                "os": dxdiag['SystemInformation']['OperatingSystem'],
+                "language": dxdiag['SystemInformation']['Language'],
+                "bios": dxdiag['SystemInformation']['BIOS']
+            },
+            "cpu": {
+                "model": subprocess.check_output(['bash','-c','less /proc/cpuinfo | grep "model name" | head -1']).decode('utf-8').strip()[13:]
+                "real_cpu": psutil.cpu_count(logical=False),
+                "logical_cpu": psutil.cpu_count(logical=True),
+                "max_cpu_freq": psutil.cpu_freq()[2]
+            },
+            "gpu": getGpu(),
+            "ram": {
+                "total_ram": dxdiag['SystemInformation']['Memory'][:4],
+                "swap_ram": bytes2human(psutil.swap_memory()[0])
+            },
+            "disk": getDisks(),
+            "sound": getSound(),
+            "net": {},
+            "misc": {
+                "boot_time": datetime.datetime.fromtimestamp(psutil.boot_time()).strftime("%Y-%m-%d %H:%M:%S"),
+                "users": getUsers(),
+                "battery": getBattery()
+            }
+        }
+        print(json.dumps(information,indent=4))
+        return json.dumps(information)

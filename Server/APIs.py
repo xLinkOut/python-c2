@@ -37,6 +37,7 @@ class GetUpdatesHandler(tornado.web.RequestHandler):
         command_id = self.get_body_argument("command_id")
         response = self.get_body_argument("response")
         Utility.DB.executeQuery("UPDATE QUEUE SET RESPONSE=?, STATUS=1 WHERE CLIENT_ID=? AND COMMAND_ID=?",[response,client_id,command_id])
+
 class SysinfoHandler(tornado.web.RequestHandler):
     def post(self):
         client_id = self.get_argument('id')

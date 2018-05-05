@@ -5,170 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <style>
-    @import url('https://fonts.googleapis.com/css?family=Raleway:400,500');
-
-.hidden {
-  display: none !important;
-}
-
-.visible {
-  display: inherit !important;
-}
-
-.cli-input,
-.cli-input:focus {
-  width: 94.9%;
-  background: none;
-  border: none;
-  outline: none;
-  color: #DADFE5;
-}
-
-.dollar {
-  margin-right: 1%;
-}
-
-.term-reverse {
-  background: #DADFE5;
-  width: 2px;
-  height: 10px;
-}
-
-.cli {
-  max-width: 40%;
-}
-
-@media (max-width: 768px) {
-  .cli {
-    max-width: 100%;
-  }
-}
-
-.cli .cli-header {
-  background: #EEF1F5;
-  height: 25px;
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-  padding: 6px 15px 0 15px;
-  font-size: .75em;
-  color: #9b9fa5;
-}
-
-.cli .cli-header span {
-  display: inline-block;
-  text-align: center;
-  position: relative;
-  top: -1px;
-  margin-left: 15px;
-}
-
-.cli .cli-header span:hover {
-  cursor: default;
-}
-
-.cli .cli-header .dot {
-  background: #D8DCE2;
-  height: 15px;
-  width: 15px;
-  border-radius: 50%;
-  display: inline-block;
-  position: relative;
-  top: 2px;
-  /* Transitions */
-  
-  -webkit-transition: all .25s ease-in-out;
-  -moz-transition: all .25s ease-in-out;
-  -ms-transition: all .25s ease-in-out;
-  -o-transition: all .25s ease-in-out;
-  transition: all .25s ease-in-out;
-}
-
-.cli .cli-header .dot:not(:nth-child(1)) {
-  margin-left: 4px;
-}
-/* Colors for dots */
-
-.cli .cli-header .dot:nth-child(1):hover {
-  background: #DD333F;
-}
-
-.cli .cli-header .dot:nth-child(2):hover {
-  background: #F5D76E;
-}
-
-.cli .cli-header .dot:nth-child(3):hover {
-  background: #5FDD68;
-}
-
-.cli .cli-body {
-  background: #353B46;
-  padding: 30px;
-  min-height: 50%;
-  min-height: 50vh;
-  max-height: 50%;
-  max-height: 50vh;
-  color: #DADFE5;
-  font-size: .75em;
-  font-weight: 500;
-  border-bottom-left-radius: 4px;
-  border-bottom-right-radius: 4px;
-  overflow: auto;
-  overflow-y: scroll;
-}
-
-.cli .cli-body:hover {
-  cursor: text;
-}
-
-.cli .cli-body p {
-  margin-top: 0;
-  margin-bottom: 5px;
-}
-
-.cli .cli-body p.success {
-  color: #5FDD68;
-}
-
-.cli .cli-body p.error {
-  color: #DD333F;
-}
-
-.cli .cli-body p.small {
-  font-size: .7em;
-}
-
-.cli .cli-body p a,
-.cli .cli-body p a:visited {
-  color: #dadfe5;
-}
-/* SCROLLBARS */
-
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-button {
-  width: 8px;
-  height: 5px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #D8DCE2;
-  border: thin solid #D8DCE2;
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #7d7d7d;
-}
-    </style>
 </head>
 <body>
     
@@ -184,13 +20,10 @@
     
     <br>
     
-    <button type="submit" id="sysinfo">System Info</button>
-
-    <div>
-        <ul style="list-style-type: none;margin: 0;padding: 0;">
-            <!-- fake terminal output -->
-        </ul>
-    </div>
+    <form method="post" action ="">
+        <input type="submit" value="sysinfo" 
+             name="command" id="frm1_submit" />
+    </form>
 
     <form method="post" action="">
         <input type="hidden" name="clientid" value="{{data[0]}}">
@@ -203,24 +36,8 @@
     <a href="/login">Login</a>
     <a href="/logout">Logout</a>
     <a href="/recover">Recover</a>
-    worked
-    <div id="terminal" class="cli">
-        <div id="terminal-header" class="cli-header">
-            <a class="dot" href="#"></a>
-            <a class="dot" href="#"></a>
-            <a class="dot" href="#"></a>
-            <span>Clean CLI</span>
-        </div>
-        <div id="terminal-body" class="cli-body" ng-click="focusTextarea()">
-            <p class="success"><span class="dollar">$</span> Terminal loaded!</p>
-            <div class="cli-control">
-            <span class="dollar left">$</span>
-            <input type="text" class="cli-input right" name="cli-input" autofocus>
-            </div>
-        </div>
-    </div>
 
-
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script>
         function SubForm (){
             $.ajax({
@@ -233,51 +50,6 @@
             });
         }
     </script>
-    <script>
-        $("#sysinfo").on('click', function(e){
-            e.preventDefault();
-            $.ajax({
-                url: window.location.pathname,
-                type:'post',
-                data:{'command':'sysinfo'},
-                success:function(msg){
-                    console.log(msg);
-                    //Insert dinamically admin name
-                    $("#terminal ul").append('<li>luca@DaVinci# '+msg+'</li>');
-                }
-            });
-        });
-    </script>
-    <!--
-    <script>
-        $(document).ready(function() {
-            // Autofocus
-            $('.cli-body').click(function() {
-                $('.cli-input').focus();
-            });
 
-            // Text mockup
-            $('.cli-input').on('change', function() {
-                $('.cli-control').before('<p class="success"><span class="dollar">$</span> ' + $(this).val() + '</p>');
-                $(this).val('');
-            });
-        });
-    </script>
-    <script>
-        old = $(".cli-body p:last-of-type").get()[0]['textContent']
-        setInterval(function(){
-            $.ajax({
-                url: window.location.pathname+'/loadDatabase',
-                type:'get',
-                success:function(msg){
-                    if(msg != old){
-                        $('.cli-control').before('<p class="error"><span class="dollar">$</span> ' + msg + '</p>');
-                        console.log(msg);
-                        old = msg.replace(/\\"/g, '"');
-                    }
-                }})
-        }, 5000);
-    </script>
--->
 </body>
 </html>

