@@ -1,6 +1,9 @@
+# Directories
 venv/
 .vscode/
 */__pycache__/
+
+# Files
 *.db
-changelog.txt
 *.pyc
+changelog.txt
