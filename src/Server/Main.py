@@ -1,12 +1,12 @@
 #-*- coding:utf-8 -*-
 
-import tornado.web,tornado.options
+import tornado.web, tornado.options
 import os
 import Server
 import APIs
 
-tornado.options.define("port",type=int,default=6969,help="Run the WebServer on the given port.")
-tornado.options.define("html",type=str,default="html",help="Set the directory that contain the html files.")
+tornado.options.define("port", type=int, default=6969, help="Run the WebServer on the given port.")
+tornado.options.define("html", type=str, default="html", help="Set the directory that contain the html files.")
 
 class Application(tornado.web.Application):
     def __init__(self):
@@ -37,6 +37,7 @@ class Application(tornado.web.Application):
         ], **settings)
 
 def main():
+    print("Starting server...")
     tornado.options.parse_command_line()
     Application().listen(tornado.options.options.port)
     tornado.ioloop.IOLoop.current().start()

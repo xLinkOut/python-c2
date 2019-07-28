@@ -16,6 +16,7 @@ def Init():
     r = requests.post(SERVER_URL + "init",data={"id": MY_ID})
     # :todo: aggiungere controlli sull'avvenuta connessione
 
+
 def Polling():
     response = requests.get(SERVER_URL + "getUpdates?id={}".format(MY_ID))
     data = json.loads(response.text)
